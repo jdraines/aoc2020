@@ -32,33 +32,12 @@ namespace AOC2020.DayPuzzles
         {
             var passports = new List<Passport>() { };
             string[] records = InputParser.ReadChunksToStringArr(Day, "1");
-            List<string> errors = new List<string>();
-
 
             foreach (string rec in records)
             {
-                try
-                {
-                    passports.Add(RecordParser.RecordToPassport(rec));
-                }
-                catch (Exception e)
-                {
-                    errors.Add(e.Message);
-                }
+                try { passports.Add(RecordParser.RecordToPassport(rec)); }
+                catch { }
             }
-
-            Console.WriteLine("\nValid passports:");
-            foreach (Passport pport in passports)
-            {
-                Console.WriteLine(pport.ToString() + "\n");
-            }
-
-
-            //Console.WriteLine("\nInvalid Passports:");
-            //foreach (string msg in errors)
-            //{
-            //    Console.WriteLine(msg);
-            //}
 
             Console.WriteLine($"\nNumber of valid passports: {passports.Count}");
         }
