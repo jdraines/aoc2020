@@ -8,5 +8,6 @@
   <ItemGroup>
     <Folder Include="DayLibs\Day04Lib\" />
     <Folder Include="DayLibs\Day05Lib\" />
+    <Folder Include="DayLibs\Day07Lib\" />
   </ItemGroup>
 </Project>
