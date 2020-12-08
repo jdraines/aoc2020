@@ -19,12 +19,11 @@ namespace AOC2020.GBInterpreter
         private long linePointer;
         private string[] Code { get; set; }
         public GBCommand ExitCommand { get; set; }
+        public List<GBCommand> History;
 
         public GBExecutor(long accInit=0, long lineInit=1)
         {
-            Accumulator = accInit;
-            linePointer = lineInit;
-            ExitCommand = new GBCommand("INITIALIZE", 0);
+            Restart(accInit, lineInit);
         }
 
         public void Restart(long accInit=0, long lineInit=1)
@@ -32,6 +31,7 @@ namespace AOC2020.GBInterpreter
             Accumulator = accInit;
             linePointer = lineInit;
             ExitCommand = new GBCommand("INITIALIZE", 0);
+            History = new List<GBCommand>();
         }
 
         public long Load(string[] code)
@@ -57,6 +57,7 @@ namespace AOC2020.GBInterpreter
                 }
 
                 long execution = Command[Cmd.Name].Run(Cmd.Value, ref linePointer, ref Accumulator);
+                History.Add(Cmd);
                 if (BreakValue(execution, Cmd))
                 {
                     return Break(Cmd, WriteOut);
