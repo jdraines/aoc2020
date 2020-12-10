@@ -26,24 +26,14 @@ namespace AOC2020.DayLibs.Day10Lib
                 edgePossibilities.Add(ratings[i], GetPossibleIncomingEdges(ratings[i], ratings, i));
             }
 
-            foreach (KeyValuePair<int, List<int>> kv in edgePossibilities)
-            {
-                Console.WriteLine($"{kv.Key}={String.Join(",", kv.Value)}");
-            }
-
-            RatingEdgeCount edgeCounts = new RatingEdgeCount();
+            RatingEdgeCount pathCounts = new RatingEdgeCount();
 
             for (int i = ratings.Length - 1; i >= 0; i--)
             {
-                edgeCounts.Add(ratings[i], GetOutgoingPathCount(i, ratings, edgeCounts, edgePossibilities));
+                pathCounts.Add(ratings[i], GetOutgoingPathCount(i, ratings, pathCounts, edgePossibilities));
             }
 
-            foreach (KeyValuePair<int, long> kv in edgeCounts )
-            {
-                Console.WriteLine($"{kv.Key}={kv.Value}");
-            }
-
-            return edgeCounts[ratings[0]];
+            return pathCounts[ratings[0]];
         }
 
         public static List<int> GetPossibleIncomingEdges(int rating, int[] all_ratings, int idx)
@@ -67,7 +57,7 @@ namespace AOC2020.DayLibs.Day10Lib
 
         public static long GetOutgoingPathCount(int idx, int[] all_ratings, RatingEdgeCount masterEdgeCount, AdapterChoices edgePoss)
         {
-            long edgeCount = 0;
+            long pathCount = 0;
 
             // handle the device, which has 0 outgoing edges
             if (idx == all_ratings.Length - 1)
@@ -81,10 +71,10 @@ namespace AOC2020.DayLibs.Day10Lib
                 int rating = all_ratings[idx];
                 if (edgePoss[all_ratings[i]].Contains(rating))
                 {
-                    edgeCount += masterEdgeCount[all_ratings[i]];
+                    pathCount += masterEdgeCount[all_ratings[i]];
                 }
             }
-            return edgeCount;
+            return pathCount;
         }
 
     }
