@@ -55,23 +55,24 @@ namespace AOC2020.DayLibs.Day10Lib
             return possibilities;
         }
 
-        public static long GetOutgoingPathCount(int idx, int[] all_ratings, RatingPathCount masterEdgeCount, AdapterChoices edgePoss)
+        public static long GetOutgoingPathCount(int idx, int[] all_ratings, RatingPathCount masterPathCount, AdapterChoices edgePoss)
         {
             long pathCount = 0;
 
-            // handle the device, which has 0 outgoing edges
+            // handle the device, which represents 1 path in itself
             if (idx == all_ratings.Length - 1)
             {
                 return 1;
             }
 
-            // Add the path counts for all subsequent rating connections
+            // Add the path counts for all subsequent rating connections by looking
+            // up the path counts for their child connections.
             for (int i = idx + 1; i < all_ratings.Length; i++)
             {
                 int rating = all_ratings[idx];
                 if (edgePoss[all_ratings[i]].Contains(rating))
                 {
-                    pathCount += masterEdgeCount[all_ratings[i]];
+                    pathCount += masterPathCount[all_ratings[i]];
                 }
             }
             return pathCount;
