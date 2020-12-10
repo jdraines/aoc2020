@@ -31,16 +31,29 @@ namespace AOC2020.DayLibs.Day10Lib
                 }
                 else
                 {
-                    throw new Exception($"Cannot connect thes two consecutive adapters rated {adapters[i - 1].Rating} & {adapters[i].Rating}");
+                    throw new Exception($"Cannot connect thes two consecutive " +
+                                        $"adapters rated {adapters[i - 1].Rating} & {adapters[i].Rating}");
                 }
             }
 
             return adapters;
         }
+
         public static bool CanConnect(IPowerRated a, IPowerRated b)
         {
-            int diff = Math.Abs(b.Rating - a.Rating);
-            return diff < 3 && diff >= 0;
+            return CanConnect(a.Rating, b.Rating);
+        }
+
+        public static bool CanConnect(int a, int b)
+        {
+            int diff = Math.Abs(b - a);
+            return diff <= 3 && diff >= 1;
+        }
+
+        public static bool CanBeConnected(int lowRating, int highRating)
+        {
+            int diff = highRating - lowRating;
+            return diff <= 3 && diff >= 1;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using AOC2020.AOCInput;
 using AOC2020.DayLibs.Day10Lib;
+using Tree = AOC2020.DayLibs.Day10Lib.VirtualConnectionTree;
 
 namespace AOC2020.DayPuzzles
 {
@@ -32,13 +33,31 @@ namespace AOC2020.DayPuzzles
         }
 
         public void SolvePart2()
-        { }
+        {
+            int[] adapterRatings = InputParser.ReadToIntArr(Day, "1");
+            JoltAdapter[] adapters = new JoltAdapter[adapterRatings.Length];
+            for (int i = 0; i < adapterRatings.Length; i++)
+            {
+                adapters[i] = new JoltAdapter(adapterRatings[i]);
+            }
+
+            long solution = Tree.TreeNodeCount(adapters);
+            Console.WriteLine($"Solution: {solution}");
+
+        }
 
         public void SolveTest()
-        { }
+        {
+            int[] adapterRatings = InputParser.ReadToIntArr(Day, "Test");
+            JoltAdapter[] adapters = new JoltAdapter[adapterRatings.Length];
+            for (int i = 0; i < adapterRatings.Length; i++)
+            {
+                adapters[i] = new JoltAdapter(adapterRatings[i]);
+            }
 
-        
-
+            long solution = Tree.TreeNodeCount(adapters);
+            Console.WriteLine($"Solution: {solution}");
+        }
 
     }
 }
