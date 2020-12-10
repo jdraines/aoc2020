@@ -19,7 +19,7 @@ namespace AOC2020.DayPuzzles
                 adapters[i] = new JoltAdapter(adapterRatings[i]);
             }
             Device device = new Device(adapters.Select(a => a.Rating).Max() + 3);
-            JoltAdapter[] chain = CreateSimpleChain(adapters);
+            JoltAdapter[] chain = Utilities.CreateSimpleChain(adapters);
             chain[^1].ConnectRecipient(device);
             int deviceDiff = device.inDiff;
 
@@ -37,31 +37,8 @@ namespace AOC2020.DayPuzzles
         public void SolveTest()
         { }
 
-        private JoltAdapter[] CreateSimpleChain(JoltAdapter[] adapterArr)
-        {
-            JoltAdapter[] adapters = adapterArr.ToList().OrderBy(a=>a.Rating).ToArray();
+        
 
-            for (int i = 1; i < adapterArr.Length; i++)
-            {
-                if (i == 0)
-                { }
-                else if (CanConnect(adapters[i-1],adapters[i]))
-                {
-                    adapters[i].ConnectSource(adapters[i - 1]);
-                }
-                else
-                {
-                    throw new Exception($"Cannot connect thes two consecutive adapters rated {adapters[i - 1].Rating} & {adapters[i].Rating}");
-                }
-            }
 
-            return adapters;
-        }
-
-        private bool CanConnect(IPowerRated a, IPowerRated b)
-        {
-            int diff = Math.Abs(b.Rating - a.Rating);
-            return diff < 3 && diff >= 0;
-        }
     }
 }
