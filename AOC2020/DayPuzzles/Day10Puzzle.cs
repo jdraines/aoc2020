@@ -41,7 +41,7 @@ namespace AOC2020.DayPuzzles
                 adapters[i] = new JoltAdapter(adapterRatings[i]);
             }
 
-            long solution = Tree.TreeNodeCount(adapters);
+            long solution = Tree.TreePathCount(adapters);
             Console.WriteLine($"Solution: {solution}");
 
         }
@@ -55,7 +55,7 @@ namespace AOC2020.DayPuzzles
                 adapters[i] = new JoltAdapter(adapterRatings[i]);
             }
 
-            long solution = Tree.TreeNodeCount(adapters);
+            long solution = Tree.TreePathCount(adapters);
             Console.WriteLine($"Solution: {solution}");
         }
 

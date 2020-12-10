@@ -9,7 +9,7 @@ namespace AOC2020.DayLibs.Day10Lib
     public static class VirtualConnectionTree
     {
 
-        public static long TreeNodeCount(JoltAdapter[] adapters)
+        public static long TreePathCount(JoltAdapter[] adapters)
         {
             adapters = Utilities.SortAdapters(adapters);
             int[] ratings = new int[adapters.Length + 2];
