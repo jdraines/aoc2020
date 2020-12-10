@@ -70,6 +70,12 @@ namespace AOC2020.AOCInput
             return ParseToInts(strIn);
         }
 
+        public static long[] ReadToLongArr(string day, string part)
+        {
+            string[] strIn = ReadToStringArr(day, part);
+            return ParseToLongs(strIn);
+        }
+
         private static int[] ParseToInts(string[] strArrIn)
         {
             int inputLength = strArrIn.Length;
@@ -81,6 +87,19 @@ namespace AOC2020.AOCInput
             }
             return intArr;
         }
+
+        private static long[] ParseToLongs(string[] strArrIn)
+        {
+            int inputLength = strArrIn.Length;
+            long[] intArr = new long[inputLength];
+
+            for (int i = 0; i < inputLength; i++)
+            {
+                intArr[i] = Int64.Parse(strArrIn[i]);
+            }
+            return intArr;
+        }
+
 
         private static string GetThisFilePath([CallerFilePath] string path = null)
         {

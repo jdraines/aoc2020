@@ -9,5 +9,6 @@
     <Folder Include="DayLibs\Day04Lib\" />
     <Folder Include="DayLibs\Day05Lib\" />
     <Folder Include="DayLibs\Day07Lib\" />
+    <Folder Include="XMASHack\" />
   </ItemGroup>
 </Project>
