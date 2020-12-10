@@ -3,6 +3,24 @@ using System.Collections.Generic;
 
 namespace AOC2020.GBInterpreter
 {
+    /// <summary>
+    /// The GBExecutor (Game Boy Executor) class runs the code from the Day08
+    /// input.
+    ///
+    /// Its constructor allows one to instatiate the object with code, and
+    /// initialization values for the Accumulator and linePointer. In addition
+    /// to internally setting these properties, initialization also sets initial
+    /// values for the ExitCommand and History properties.
+    ///
+    /// The Reset method allows one to reset the instance to an initialized state.
+    ///
+    /// The Run method executes the code and allows for an injected inspector
+    /// to perform inspection operations and return a break code if desired.
+    /// 
+    /// Inspectors inspect each line of code. While the inspector cannot alter
+    /// the linePointer or accumulator values, it can alter the single command
+    /// that it inspects, enabling some debugging.
+    /// </summary>
     public class GBExecutor
     {
         public static long BREAK { get; } = 9909909;
@@ -21,25 +39,33 @@ namespace AOC2020.GBInterpreter
         public GBCommand ExitCommand { get; set; }
         public List<GBCommand> History;
 
-        public GBExecutor(long accInit=0, long lineInit=1)
+        public GBExecutor(string[] code, long accInit=0, long lineInit=1)
         {
-            Restart(accInit, lineInit);
+            Reset(code, accInit, lineInit);
         }
-
-        public void Restart(long accInit=0, long lineInit=1)
+        ///<summary>
+        /// The Reset method allows one to reset the instance to an initialized state.
+        /// </summary>
+        public void Reset(string[] code=null, long accInit=0, long lineInit=1)
         {
+            if (code is null)
+            {
+                Code = code;
+            }
             Accumulator = accInit;
             linePointer = lineInit;
             ExitCommand = new GBCommand("INITIALIZE", 0);
             History = new List<GBCommand>();
         }
 
-        public long Load(string[] code)
-        {
-            Code = code;
-            return 0;
-        }
-
+        /// <summary>
+        /// The Run method executes the code and allows for an injected inspector
+        /// to perform inspection operations and return a break code if desired.
+        /// 
+        /// Inspectors inspect each line of code. While the inspector cannot alter
+        /// the linePointer or accumulator values, it can alter the single command
+        /// that it inspects, enabling some debugging.
+        /// </summary>
         public long Run(IInspector inspector=null, bool WriteOut=true)
         {
             if (inspector != null)

@@ -44,14 +44,8 @@ namespace AOC2020.DayLibs.Day07Lib
 
         public bool Equals(LuggageRule obj)
         {
-            try
-            {
-                return this == obj;
-            }
-            catch
-            {
-                return false;
-            }
+            return this == obj;
+            
         }
 
         public override int GetHashCode()

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using AOC2020.AOCInput;
 using LuggageRule = AOC2020.DayLibs.Day07Lib.LuggageRule;
 using Bag = AOC2020.DayLibs.Day07Lib.Bag;
-using BigInt = System.Numerics.BigInteger;
 
 namespace AOC2020.DayPuzzles
 {
@@ -104,7 +103,6 @@ namespace AOC2020.DayPuzzles
             List<Bag> bags = new List<Bag>();
 
             LuggageRule rule = GetRule(bag, rules);
-            Console.WriteLine(rule);
 
             if (rule.childTypes.Count > 0)
             {
