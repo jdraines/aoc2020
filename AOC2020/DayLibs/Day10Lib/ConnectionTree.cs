@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AdapterChoices = System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<int>>;
-using RatingEdgeCount = System.Collections.Generic.Dictionary<int, long>;
+using RatingPathCount = System.Collections.Generic.Dictionary<int, long>;
 
 namespace AOC2020.DayLibs.Day10Lib
 {
@@ -26,7 +26,7 @@ namespace AOC2020.DayLibs.Day10Lib
                 edgePossibilities.Add(ratings[i], GetPossibleIncomingEdges(ratings[i], ratings, i));
             }
 
-            RatingEdgeCount pathCounts = new RatingEdgeCount();
+            RatingPathCount pathCounts = new RatingPathCount();
 
             for (int i = ratings.Length - 1; i >= 0; i--)
             {
@@ -55,7 +55,7 @@ namespace AOC2020.DayLibs.Day10Lib
             return possibilities;
         }
 
-        public static long GetOutgoingPathCount(int idx, int[] all_ratings, RatingEdgeCount masterEdgeCount, AdapterChoices edgePoss)
+        public static long GetOutgoingPathCount(int idx, int[] all_ratings, RatingPathCount masterEdgeCount, AdapterChoices edgePoss)
         {
             long pathCount = 0;
 
