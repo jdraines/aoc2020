@@ -9,7 +9,32 @@ namespace AOC2020.DayPuzzles
 
         public void SolvePart1()
         {
-            char[,] seatMap = SeatUtils.ReadTo2dCharArr(Day, "1");
+            string part1 = "1";
+            char[,] seatMap = SeatUtils.ReadTo2dCharArr(Day);
+            _ = new char[seatMap.GetLength(0), seatMap.GetLength(1)];
+
+            while (true)
+            {
+                char[,] updatedMap = SeatUtils.UpdateMap(seatMap, part1);
+                if (SeatUtils.MapsAreEqual(updatedMap, seatMap))
+                {
+                    break;
+                }
+                else
+                {
+                    seatMap = updatedMap;
+                }
+            }
+
+            int occupiedCount = SeatUtils.CountMapOccurence('#', seatMap);
+            Console.WriteLine($"Number of occupied seats: {occupiedCount}");
+
+        }
+
+        public void SolvePart2()
+        {
+            string part2 = "2";
+            char[,] seatMap = SeatUtils.ReadTo2dCharArr(Day);
             char[,] updatedMap = new char[seatMap.GetLength(0), seatMap.GetLength(1)];
 
             int stopAt = 10000;
@@ -17,7 +42,7 @@ namespace AOC2020.DayPuzzles
 
             while (true)
             {
-                updatedMap = SeatUtils.UpdateMap(seatMap);
+                updatedMap = SeatUtils.UpdateMap(seatMap, part2);
                 if (SeatUtils.MapsAreEqual(updatedMap, seatMap))
                 {
                     break;
@@ -37,12 +62,6 @@ namespace AOC2020.DayPuzzles
 
             int occupiedCount = SeatUtils.CountMapOccurence('#', seatMap);
             Console.WriteLine($"Number of occupied seats: {occupiedCount}");
-
-        }
-
-        public void SolvePart2()
-        {
-            throw new NotImplementedException();
         }
 
         public void SolveTest()
@@ -55,7 +74,7 @@ namespace AOC2020.DayPuzzles
 
             while ( true )
             {
-                updatedMap = SeatUtils.UpdateMap(seatMap);
+                updatedMap = SeatUtils.UpdateMap(seatMap, "2");
                 if (SeatUtils.MapsAreEqual(updatedMap, seatMap))
                 {
                     break;

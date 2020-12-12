@@ -10,7 +10,7 @@ namespace AOC2020.AOCInput
     public static class InputParser
     {
 
-        public static string[] ReadToStringArr(string day, string part, bool dropBlanks=false)
+        public static string[] ReadToStringArr(string day, string part="1", bool dropBlanks=false)
         {
             string filename = $"Day{day}Input{part}.txt";
             string dirpath = Path.GetDirectoryName(GetThisFilePath());
@@ -32,7 +32,7 @@ namespace AOC2020.AOCInput
             return inputStrArr;
         }
 
-        public static string[] ReadChunksToStringArr(string day, string part)
+        public static string[] ReadChunksToStringArr(string day, string part="1")
         {
             string filename = $"Day{day}Input{part}.txt";
             string dirpath = Path.GetDirectoryName(GetThisFilePath());
@@ -64,13 +64,13 @@ namespace AOC2020.AOCInput
             return chunks.ToArray();
         }
 
-        public static int[] ReadToIntArr(string day, string part)
+        public static int[] ReadToIntArr(string day, string part="1")
         {
             string[] strIn = ReadToStringArr(day, part);
             return ParseToInts(strIn);
         }
 
-        public static long[] ReadToLongArr(string day, string part)
+        public static long[] ReadToLongArr(string day, string part="1")
         {
             string[] strIn = ReadToStringArr(day, part);
             return ParseToLongs(strIn);
