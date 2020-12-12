@@ -17,7 +17,7 @@ namespace AOC2020.DayLibs.Day11Lib
     public static class SeatUtils
     {
 
-        public static char[,] ReadTo2dCharArr(string day, string part="1")
+        public static char[,] ReadTo2dCharArr(string day, string part = "1")
         {
             string[] input = InputParser.ReadToStringArr(day, part);
             char[,] seatMap = new char[input.Length, input[0].Length];
