@@ -10,6 +10,14 @@ namespace AOC2020.AOCInput
     public static class InputParser
     {
 
+        public static string ReadtoString(string day, string part="1")
+        {
+            string filename = $"Day{day}Input{part}.txt";
+            string dirpath = Path.GetDirectoryName(GetThisFilePath());
+            string inputPath = Path.Combine(dirpath, filename);
+            return File.ReadAllText(inputPath);
+        }
+
         public static string[] ReadToStringArr(string day, string part="1", bool dropBlanks=false)
         {
             string filename = $"Day{day}Input{part}.txt";
@@ -70,6 +78,11 @@ namespace AOC2020.AOCInput
             return ParseToInts(strIn);
         }
 
+        public static int[] ReadTextToIntArr(string day, string part="1")
+        {
+            return ParseToInts(ReadtoString(day, part), ",");
+        }
+
         public static long[] ReadToLongArr(string day, string part="1")
         {
             string[] strIn = ReadToStringArr(day, part);
@@ -86,6 +99,17 @@ namespace AOC2020.AOCInput
                 intArr[i] = Int32.Parse(strArrIn[i]);
             }
             return intArr;
+        }
+
+        private static int[] ParseToInts(string strIn, string delim)
+        {
+            string[] bits = strIn.Split(delim);
+            int[] ints = new int[bits.Length];
+            for (int i = 0; i < bits.Length; i++)
+            {
+                ints[i] = Int32.Parse(bits[i]);
+            }
+            return ints;
         }
 
         private static long[] ParseToLongs(string[] strArrIn)
