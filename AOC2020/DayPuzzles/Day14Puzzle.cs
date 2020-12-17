@@ -49,7 +49,7 @@ namespace AOC2020.DayPuzzles
                 catch (Exception e)
                 {
                     Console.WriteLine(entry.Value);
-                    throw e;
+                    throw;
                 }
                 
             }

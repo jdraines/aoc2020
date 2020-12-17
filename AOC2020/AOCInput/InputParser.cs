@@ -56,7 +56,7 @@ namespace AOC2020.AOCInput
                 string head = inputStrArr[i];
                 if (!String.IsNullOrWhiteSpace(head))
                 {
-                    chunk += (head + " ");
+                    chunk += (head + "\n");
                 }
                 else
                 {

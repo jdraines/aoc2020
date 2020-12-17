@@ -12,5 +12,6 @@
     <Folder Include="XMASHack\" />
     <Folder Include="DayLibs\Day11Lib\" />
     <Folder Include="DayLibs\Day14Lib\" />
+    <Folder Include="DayLibs\Day16Lib\" />
   </ItemGroup>
 </Project>
