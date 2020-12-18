@@ -13,5 +13,6 @@
     <Folder Include="DayLibs\Day11Lib\" />
     <Folder Include="DayLibs\Day14Lib\" />
     <Folder Include="DayLibs\Day16Lib\" />
+    <Folder Include="DayLibs\Day17Lib\" />
   </ItemGroup>
 </Project>

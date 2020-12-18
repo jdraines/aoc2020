@@ -46,7 +46,7 @@ namespace AOC2020.DayPuzzles
                 {
                     solution += Convert.ToInt64(entry.Value.Trim(), 2);
                 }
-                catch (Exception e)
+                catch
                 {
                     Console.WriteLine(entry.Value);
                     throw;
