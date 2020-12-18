@@ -24,6 +24,21 @@ namespace AOC2020.DayLibs.Day17Lib
             return map;
         }
 
+        public static char[,,,] GetInputMap4D(string day = "17", string part = "1")
+        {
+            string[] rawIn = InputParser.ReadToStringArr(day, part);
+            char[,,,] map = new char[rawIn[0].Length, rawIn.Length, 1, 1];
+
+            for (int i = 0; i < rawIn[0].Length; i++)
+            {
+                for (int j = 0; j < rawIn.Length; j++)
+                {
+                    map[j, i, 0, 0] = rawIn[i][j];
+                }
+            }
+            return map;
+        }
+
         public static char[,,] EnlargeMap(char[,,] map)
         {
             char[,,] enlarged = new char[map.GetLength(0) + 2, map.GetLength(1) + 2, map.GetLength(2) + 2];
@@ -46,6 +61,43 @@ namespace AOC2020.DayLibs.Day17Lib
                     for (int k = 0; k < map.GetLength(2); k++)
                     {
                         enlarged[i + 1, j + 1, k + 1] = map[i, j, k];
+                    }
+                }
+            }
+
+            return enlarged;
+        }
+
+        public static char[,,,] EnlargeMap(char[,,,] map)
+        {
+            char[,,,] enlarged = new char[map.GetLength(0) + 2, map.GetLength(1) + 2, map.GetLength(2) + 2, map.GetLength(3) + 2];
+
+            for (int i = 0; i < enlarged.GetLength(0); i++)
+            {
+                for (int j = 0; j < enlarged.GetLength(1); j++)
+                {
+                    for (int k = 0; k < enlarged.GetLength(2); k++)
+                    {
+                        for (int n = 0; n < enlarged.GetLength(3); n++)
+                        {
+                            enlarged[i, j, k, n] = '.';
+                        }
+                    }
+                }
+            }
+
+            char mapVal;
+
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    for (int k = 0; k < map.GetLength(2); k++)
+                    {
+                        for (int n = 0; n < map.GetLength(3); n++)
+                        {
+                            enlarged[i + 1, j + 1, k + 1, n + 1] = map[i, j, k, n];
+                        }
                     }
                 }
             }
@@ -87,6 +139,43 @@ namespace AOC2020.DayLibs.Day17Lib
             return updated;
         }
 
+        public static char[,,,] UpdateMap(char[,,,] map)
+        {
+            char[,,,] updated = EnlargeMap(map);
+            int activeNeighbors = 0;
+
+            for (int i = 0; i < updated.GetLength(0); i++)
+            {
+                for (int j = 0; j < updated.GetLength(1); j++)
+                {
+                    for (int k = 0; k < updated.GetLength(2); k++)
+                    {
+                        for (int n = 0; n < updated.GetLength(3); n++)
+                        {
+                            activeNeighbors = CountActiveNeighbors(map, i - 1, j - 1, k - 1, n - 1);
+
+                            if (IsActive(updated, i, j, k, n))
+                            {
+                                if (activeNeighbors != 2 && activeNeighbors != 3)
+                                {
+                                    updated[i, j, k, n] = '.';
+                                }
+                            }
+                            else
+                            {
+                                if (activeNeighbors == 3)
+                                {
+                                    updated[i, j, k, n] = '#';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return updated;
+        }
+
 
         public static int CountActiveNeighbors(char[,,] map, int x, int y, int z)
         {
@@ -108,6 +197,38 @@ namespace AOC2020.DayLibs.Day17Lib
                             if (map[i, j, k] == '#')
                             {
                                 count++;
+                            }
+                        }
+                    }
+
+                }
+            }
+            return count;
+        }
+
+        public static int CountActiveNeighbors(char[,,,] map, int x, int y, int z, int w)
+        {
+            int count = 0;
+
+            for (int i = x - 1; i < x + 2; i++)
+            {
+                for (int j = y - 1; j < y + 2; j++)
+                {
+                    for (int k = z - 1; k < z + 2; k++)
+                    {
+                        for (int n = w - 1; n < w + 2; n++)
+                        {
+                            if (i == x && j == y && k == z && n == w)
+                            { }
+                            else if (
+                                (i >= 0 && j >= 0 && k >= 0 && n >= 0) &&
+                                (i < map.GetLength(0) && j < map.GetLength(1) && k < map.GetLength(2) && n < map.GetLength(3))
+                               )
+                            {
+                                if (map[i, j, k, n] == '#')
+                                {
+                                    count++;
+                                }
                             }
                         }
                     }
@@ -177,6 +298,29 @@ namespace AOC2020.DayLibs.Day17Lib
             return count;
         }
 
+        public static int CountActive(char[,,,] map)
+        {
+            int count = 0;
+
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    for (int k = 0; k < map.GetLength(2); k++)
+                    {
+                        for (int n = 0; n < map.GetLength(3); n++)
+                        {
+                            if (map[i, j, k, n] == '#')
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                }
+            }
+            return count;
+        }
+
         public static void PrintMap(char[,,] map)
         {
             for (int z = 0; z < map.GetLength(2); z++)
@@ -198,6 +342,11 @@ namespace AOC2020.DayLibs.Day17Lib
         private static bool IsActive(char[,,] map, int x, int y, int z)
         {
             return map[x, y, z] == '#';
+        }
+
+        private static bool IsActive(char[,,,] map, int x, int y, int z, int w)
+        {
+            return map[x, y, z, w] == '#';
         }
 
     }

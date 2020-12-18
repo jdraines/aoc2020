@@ -21,7 +21,13 @@ namespace AOC2020.DayPuzzles
 
         public void SolvePart2()
         {
-            throw new NotImplementedException();
+            char[,,,] map = CubeUtils.GetInputMap4D();
+
+            for (int i = 0; i < 6; i++)
+            {
+                map = CubeUtils.UpdateMap(map);
+            }
+            Console.WriteLine($"Number of active cubes: {CubeUtils.CountActive(map)}");
         }
 
         public void SolveTest()
