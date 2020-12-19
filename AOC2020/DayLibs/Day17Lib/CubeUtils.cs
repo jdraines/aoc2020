@@ -86,8 +86,6 @@ namespace AOC2020.DayLibs.Day17Lib
                 }
             }
 
-            char mapVal;
-
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
