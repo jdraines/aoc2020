@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using AOC2020.AOCInput;
 
@@ -43,19 +44,51 @@ namespace AOC2020.DayLibs.Day19Lib
         public static string GenRegexRule(int ruleNo, Dictionary<int, string> rules)
         {
             string rule = rules[ruleNo];
-            string regexRule = "(";
-            string[] rSeq = rule.Split('|');
 
             if (rule.StartsWith("\""))
             {
                 return GetRuleVal(rule);
             }
 
+            string regexRule = "(";
+            Regex ruleNumPat = new Regex(@$"\b{ruleNo}\b");
+            string[] rSeq = rule.Split('|');
+
+            if (rSeq.Length > 1)
+            {
+                if (rSeq[1].Contains(ruleNo.ToString()))
+                {
+                    if (ruleNumPat.IsMatch(rSeq[1]))
+                    {
+                        rSeq[1] = ruleNumPat.Replace(rSeq[1], $"({rSeq[0].Trim()})");
+                    }
+                }
+            }
+
             for (int i = 0; i < rSeq.Length; i++)
             {
-                foreach(string rNo in rSeq[i].Trim().Split(" "))
+                foreach (string rNo in rSeq[i].Trim().Split(" "))
                 {
-                    regexRule += GenRegexRule(Int32.Parse(rNo), rules);
+                    // This is a bit messy, but basically handles the variety of
+                    // cases arising from when the above replacement reults in
+                    // one vs a sequence of rule numbers being inserted.
+
+                    if (rNo.StartsWith("(") && rNo.EndsWith(")"))
+                    {
+                        regexRule += $"({GenRegexRule(Int32.Parse(rNo[1..^1]), rules)})+";
+                    }
+                    else if (rNo.StartsWith("("))
+                    {
+                        regexRule += $"({GenRegexRule(Int32.Parse(rNo[1..]), rules)})+";
+                    }
+                    else if (rNo.EndsWith(")"))
+                    {
+                        regexRule += $"({GenRegexRule(Int32.Parse(rNo[0..^1]), rules)}){{1,2}}";
+                    }
+                    else
+                    {
+                        regexRule += GenRegexRule(Int32.Parse(rNo), rules);
+                    }
                 }
                 if (i < rSeq.Length - 1)
                 {
